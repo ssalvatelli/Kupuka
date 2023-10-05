@@ -1,0 +1,14 @@
+.counter {
+  display: inline-flex;
+  flex-direction: column;
+}
+
+.controls {
+  height: 32px;
+  border: 1px solid;
+  margin-bottom: 3px;
+  align-items: center;
+  display: inline-flex;
+  border-radius: 25% / 100%;
+  justify-content: space-between;
+}
