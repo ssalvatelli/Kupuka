@@ -1,15 +1,21 @@
-import ItemCount from "../../commons/itemCount/ItemCount";
+import ItemList from "./ItemList";
+import { useEffect, useState } from "react";
+import { getItems } from "../../../asyncMock";
 
 function ItemListContainer({ greeting }) {
-  return (
-    <div className="card">
-      <h1>{greeting}</h1>
-      <ItemCount
-        stock={23}
-        onAdd={(count) => console.log("Cantidad agregada:", count)}
-      />
-    </div>
-  );
+  const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    getItems()
+      .then((response) => {
+        setItems(response);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
+
+  return <ItemList greeting={greeting} items={items} />;
 }
 
 export default ItemListContainer;
