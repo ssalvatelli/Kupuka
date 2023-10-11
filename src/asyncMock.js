@@ -238,3 +238,11 @@ export function getItems() {
     }, 2000);
   });
 }
+
+export function getItemById(id) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(items.find((item) => item.id === id));
+    }, 2000);
+  });
+}

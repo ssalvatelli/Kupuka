@@ -1,6 +1,6 @@
 import Grid from "@mui/material/Grid";
 import Item from "../../commons/item/Item";
-import ItemCount from "../../commons/itemCount/ItemCount";
+import ItemDetailContainer from "../itemDetailContainer/ItemDetailContainer";
 
 function ItemList({ greeting, items }) {
   return (
@@ -11,10 +11,7 @@ function ItemList({ greeting, items }) {
           return <Item key={item.id} item={item} />;
         })}
       </Grid>
-      <ItemCount
-        stock={23}
-        onAdd={(count) => console.log("Cantidad agregada:", count)}
-      />
+      <ItemDetailContainer />
     </div>
   );
 }
