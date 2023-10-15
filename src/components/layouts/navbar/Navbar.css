@@ -16,6 +16,13 @@ nav {
   filter: drop-shadow(0 0 2em #213547aa);
 }
 
+.categoryNav {
+  gap: 3px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);

@@ -1,21 +1,22 @@
 import ItemList from "./ItemList";
 import { useEffect, useState } from "react";
-import { getItems } from "../../../asyncMock";
+import { useParams } from "react-router-dom";
+import { getItemsByCategory, getItems } from "../../../asyncMock";
 
-function ItemListContainer({ greeting }) {
+function ItemListContainer() {
   const [items, setItems] = useState([]);
 
-  useEffect(() => {
-    getItems()
-      .then((response) => {
-        setItems(response);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, []);
+  const { id } = useParams();
 
-  return <ItemList greeting={greeting} items={items} />;
+  useEffect(() => {
+    const asynFunc = id ? getItemsByCategory : getItems;
+
+    asynFunc(id)
+      .then((response) => setItems(response))
+      .catch((error) => console.error(error));
+  }, [id]);
+
+  return <ItemList items={items} />;
 }
 
 export default ItemListContainer;
