@@ -1,13 +1,14 @@
 import "./ItemDetail.css";
 import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
+import { Link } from "react-router-dom";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import CardContent from "@mui/material/CardContent";
 import ItemCount from "../../commons/itemCount/ItemCount";
 import StyledEngineProvider from "@mui/material/StyledEngineProvider";
 
-function ItemDetail({ item }) {
+function ItemDetail({ item, onAdd, countAdded }) {
   return (
     <StyledEngineProvider injectFirst>
       <div className="card">
@@ -32,10 +33,13 @@ function ItemDetail({ item }) {
                 </Typography>
                 <h2>$ {new Intl.NumberFormat("es-AR").format(item.price)}</h2>
                 <p className="read-the-docs">Stock: {item.stock}</p>
-                <ItemCount
-                  stock={item.stock}
-                  onAdd={(count) => console.log("Cantidad agregada:", count)}
-                />
+                {countAdded > 0 ? (
+                  <Link to="/cart">
+                    <button>Terminar compra</button>
+                  </Link>
+                ) : (
+                  <ItemCount stock={item.stock} onAdd={onAdd} />
+                )}
               </CardContent>
             </Grid>
           </Grid>

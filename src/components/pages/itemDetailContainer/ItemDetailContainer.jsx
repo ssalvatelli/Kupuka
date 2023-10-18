@@ -6,6 +6,8 @@ import { getItemById } from "../../../asyncMock";
 function ItemDetailContainer() {
   const [item, setItem] = useState({});
 
+  const [countAdded, setCountAdded] = useState(0);
+
   const { id } = useParams();
 
   useEffect(() => {
@@ -14,7 +16,11 @@ function ItemDetailContainer() {
       .catch((error) => console.error(error));
   }, [id]);
 
-  return <ItemDetail item={item} />;
+  function handleAdd(count) {
+    setCountAdded(count);
+  }
+
+  return <ItemDetail item={item} onAdd={handleAdd} countAdded={countAdded} />;
 }
 
 export default ItemDetailContainer;
