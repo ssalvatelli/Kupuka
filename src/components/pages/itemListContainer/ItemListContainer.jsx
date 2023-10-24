@@ -6,15 +6,17 @@ import { getItemsByCategory, getItems } from "../../../asyncMock";
 function ItemListContainer() {
   const [items, setItems] = useState([]);
 
-  const { id } = useParams();
+  const { category } = useParams();
 
   useEffect(() => {
-    const asynFunc = id ? getItemsByCategory : getItems;
+    const asyncFunc = category ? getItemsByCategory : getItems;
 
-    asynFunc(id)
+    window.scrollTo(0, 0);
+
+    asyncFunc(category)
       .then((response) => setItems(response))
       .catch((error) => console.error(error));
-  }, [id]);
+  }, [category]);
 
   return <ItemList items={items} />;
 }

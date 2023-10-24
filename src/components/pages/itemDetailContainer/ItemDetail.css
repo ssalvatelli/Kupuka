@@ -5,7 +5,8 @@
 }
 
 .itemDetailImg {
-  margin: 3em;
   width: auto;
   display: inline-flex;
+  filter: brightness(1.1);
+  mix-blend-mode: multiply;
 }

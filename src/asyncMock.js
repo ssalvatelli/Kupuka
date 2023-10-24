@@ -243,8 +243,8 @@ export function getItemById(id) {
   });
 }
 
-export function getItemsByCategory(id) {
+export function getItemsByCategory(category) {
   return new Promise((resolve) => {
-    resolve(items.filter((item) => item.category.includes(id)));
+    resolve(items.filter((item) => item.category.includes(category)));
   });
 }

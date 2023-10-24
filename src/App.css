@@ -5,7 +5,9 @@
 }
 
 .card {
+  top: 77px;
   padding: 2em;
+  position: relative;
 }
 
 .read-the-docs {

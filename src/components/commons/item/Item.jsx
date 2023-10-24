@@ -13,8 +13,8 @@ function Item({ item }) {
     <StyledEngineProvider injectFirst>
       <Grid item xs={12} sm={6} md={4} lg={3} xl={2} className="gridItem">
         <Card sx={{ maxWidth: 345 }} className="cardItem">
-          <CardActionArea>
-            <Link to={`/item/${item.id}`}>
+          <Link to={`/item/${item.id}`}>
+            <CardActionArea>
               <CardMedia
                 component="img"
                 height="140"
@@ -32,8 +32,8 @@ function Item({ item }) {
                 <p>$ {new Intl.NumberFormat("es-AR").format(item.price)}</p>
                 <p className="read-the-docs">Stock: {item.stock}</p>
               </CardContent>
-            </Link>
-          </CardActionArea>
+            </CardActionArea>
+          </Link>
         </Card>
       </Grid>
     </StyledEngineProvider>

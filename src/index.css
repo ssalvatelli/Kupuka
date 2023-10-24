@@ -4,7 +4,7 @@
   font-weight: 400;
 
   color: #213547;
-  background-color: #ffffff;
+  background-color: #f9f9ff;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -18,19 +18,11 @@ a {
   color: inherit;
   text-decoration: inherit;
 }
-a:hover {
-  color: #213547;
-}
 
 body {
   margin: 0;
-  min-width: 320px;
+  min-width: 600px;
   min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
 }
 
 button {
