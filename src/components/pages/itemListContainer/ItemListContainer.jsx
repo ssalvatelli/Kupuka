@@ -13,6 +13,8 @@ function ItemListContainer() {
 
     window.scrollTo(0, 0);
 
+    setItems([]);
+
     asyncFunc(category)
       .then((response) => setItems(response))
       .catch((error) => console.error(error));

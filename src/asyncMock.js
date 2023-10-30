@@ -233,18 +233,24 @@ const items = [
 
 export function getItems() {
   return new Promise((resolve) => {
-    resolve(items);
+    setTimeout(() => {
+      resolve(items);
+    }, 2000);
   });
 }
 
 export function getItemById(id) {
   return new Promise((resolve) => {
-    resolve(items.find((item) => item.id === id));
+    setTimeout(() => {
+      resolve(items.find((item) => item.id === id));
+    }, 2000);
   });
 }
 
 export function getItemsByCategory(category) {
   return new Promise((resolve) => {
-    resolve(items.filter((item) => item.category.includes(category)));
+    setTimeout(() => {
+      resolve(items.filter((item) => item.category.includes(category)));
+    }, 2000);
   });
 }

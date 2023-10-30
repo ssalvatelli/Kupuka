@@ -4,8 +4,8 @@ import AddIcon from "@mui/icons-material/Add";
 import IconButton from "@mui/material/IconButton";
 import RemoveIcon from "@mui/icons-material/Remove";
 
-function ItemCount({ stock, onAdd }) {
-  const [count, setCount] = useState(1);
+function ItemCount({ onAdd, stock, initial = 1 }) {
+  const [count, setCount] = useState(initial);
 
   function decrement() {
     if (count > 1) setCount(count - 1);

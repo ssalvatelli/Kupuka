@@ -1,0 +1,19 @@
+.cartList {
+  width: 540px;
+  flex-wrap: wrap;
+  display: inline-flex;
+}
+
+.avatarImg {
+  border: 1px solid #646cff;
+}
+
+.cartItem {
+  width: 50%;
+}
+
+.totalCart {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}

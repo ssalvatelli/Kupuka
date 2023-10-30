@@ -5,8 +5,6 @@ export const CartContext = createContext();
 function CartProvider({ children }) {
   const [cart, setCart] = useState([]);
 
-  console.log(cart);
-
   function addItem(item, quantity) {
     if (isInCart(item.id)) {
       setCart(
@@ -14,7 +12,7 @@ function CartProvider({ children }) {
           if (prev.id === item.id) {
             return {
               ...prev,
-              quantity: Math.min(prev.quantity + quantity, prev.stock),
+              quantity,
             };
           } else {
             return prev;

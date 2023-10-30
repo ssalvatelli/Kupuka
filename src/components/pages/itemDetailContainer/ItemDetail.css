@@ -10,3 +10,9 @@
   filter: brightness(1.1);
   mix-blend-mode: multiply;
 }
+
+.buttons {
+  gap: 3px;
+  display: inline-flex;
+  flex-direction: column;
+}

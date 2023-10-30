@@ -5,20 +5,22 @@ import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../../../context/CartContext";
 
 function ItemDetailContainer() {
+  const { id } = useParams();
+
   const [countAdded, setCountAdded] = useState(0);
 
-  const { addItem } = useContext(CartContext);
+  const { cart, addItem } = useContext(CartContext);
 
-  const [item, setItem] = useState({});
-
-  const { id } = useParams();
+  const [item, setItem] = useState(cart.find((item) => item.id === +id) || {});
 
   useEffect(() => {
     window.scrollTo(0, 0);
 
-    getItemById(+id)
-      .then((response) => setItem(response))
-      .catch((error) => console.error(error));
+    if (!item.id) {
+      getItemById(+id)
+        .then((response) => setItem(response))
+        .catch((error) => console.error(error));
+    }
   }, [id]);
 
   function handleAdd(count) {
