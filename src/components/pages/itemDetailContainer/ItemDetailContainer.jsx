@@ -1,6 +1,7 @@
 import ItemDetail from "./ItemDetail";
+import { db } from "../../../firebaseConfig";
 import { useParams } from "react-router-dom";
-import { getItemById } from "../../../asyncMock";
+import { doc, getDoc } from "firebase/firestore";
 import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../../../context/CartContext";
 
@@ -11,14 +12,14 @@ function ItemDetailContainer() {
 
   const { cart, addItem } = useContext(CartContext);
 
-  const [item, setItem] = useState(cart.find((item) => item.id === +id) || {});
+  const [item, setItem] = useState(cart.find((item) => item.id === id) || {});
 
   useEffect(() => {
     window.scrollTo(0, 0);
 
     if (!item.id) {
-      getItemById(+id)
-        .then((response) => setItem(response))
+      getDoc(doc(db, "items", id))
+        .then((response) => setItem({ id: response.id, ...response.data() }))
         .catch((error) => console.error(error));
     }
   }, [id]);
@@ -28,7 +29,7 @@ function ItemDetailContainer() {
     addItem(item, count);
   }
 
-  return <ItemDetail item={item} onAdd={handleAdd} countAdded={countAdded} />;
+  return <ItemDetail item={item} countAdded={countAdded} onAdd={handleAdd} />;
 }
 
 export default ItemDetailContainer;

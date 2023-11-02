@@ -12,7 +12,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import StyledEngineProvider from "@mui/material/StyledEngineProvider";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 
-function ItemDetail({ item, onAdd, countAdded }) {
+function ItemDetail({ item, countAdded, onAdd }) {
   return (
     <StyledEngineProvider injectFirst>
       <div className="card">
@@ -20,7 +20,7 @@ function ItemDetail({ item, onAdd, countAdded }) {
           sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
           open={!item.id}
         >
-          <CircularProgress color="primary" />
+          <CircularProgress color="inherit" />
         </Backdrop>
         {item.id && (
           <Card className="cardItemDetail">
@@ -60,9 +60,9 @@ function ItemDetail({ item, onAdd, countAdded }) {
                     </div>
                   ) : (
                     <ItemCount
-                      onAdd={onAdd}
-                      stock={item.stock}
                       initial={item.quantity}
+                      stock={item.stock}
+                      onAdd={onAdd}
                     />
                   )}
                 </CardContent>

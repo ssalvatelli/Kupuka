@@ -1,26 +1,41 @@
 import ItemList from "./ItemList";
 import { useEffect, useState } from "react";
+import { db } from "../../../firebaseConfig";
 import { useParams } from "react-router-dom";
-import { getItemsByCategory, getItems } from "../../../asyncMock";
+import { collection, getDocs, query, where } from "firebase/firestore";
 
 function ItemListContainer() {
+  const [loading, setLoading] = useState(false);
+
   const [items, setItems] = useState([]);
 
   const { category } = useParams();
 
   useEffect(() => {
-    const asyncFunc = category ? getItemsByCategory : getItems;
+    setLoading(true);
 
     window.scrollTo(0, 0);
 
-    setItems([]);
+    const itemsCollection = category
+      ? query(
+          collection(db, "items"),
+          where("category", "array-contains", category)
+        )
+      : collection(db, "items");
 
-    asyncFunc(category)
-      .then((response) => setItems(response))
-      .catch((error) => console.error(error));
+    getDocs(itemsCollection)
+      .then((response) =>
+        setItems(
+          response.docs.map((doc) => {
+            return { id: doc.id, ...doc.data() };
+          })
+        )
+      )
+      .catch((error) => console.error(error))
+      .finally(() => setLoading(false));
   }, [category]);
 
-  return <ItemList items={items} />;
+  return <ItemList loading={loading} items={items} />;
 }
 
 export default ItemListContainer;
