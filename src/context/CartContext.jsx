@@ -1,9 +1,22 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 export const CartContext = createContext();
 
 function CartProvider({ children }) {
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState(
+    JSON.parse(localStorage.getItem("cart")) || []
+  );
+
+  useEffect(() => {
+    if (cart.some((item) => item.quantity === 0)) {
+      setCart(cart.filter((item) => item.quantity > 0));
+    }
+    if (cart.length > 0) {
+      localStorage.setItem("cart", JSON.stringify(cart));
+    } else {
+      localStorage.removeItem("cart");
+    }
+  }, [cart]);
 
   function addItem(item, quantity) {
     if (isInCart(item.id)) {

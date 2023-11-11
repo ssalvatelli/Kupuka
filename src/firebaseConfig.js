@@ -2,12 +2,12 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCdJOzmpqss8QiezhOB-7Le0H9UNL5b-kE",
-  authDomain: "kupuka-4d17b2.firebaseapp.com",
-  projectId: "kupuka-4d17b2",
-  storageBucket: "kupuka-4d17b2.appspot.com",
-  messagingSenderId: "336217283464",
-  appId: "1:336217283464:web:7ea9897dec9d26b4fd783d",
+  apiKey: import.meta.env.VITE_API_KEY,
+  authDomain: import.meta.env.VITE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_APP_ID,
 };
 
 const app = initializeApp(firebaseConfig);

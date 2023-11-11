@@ -17,15 +17,17 @@ function ItemCount({ initial = 1, stock, onAdd }) {
 
   return (
     <div className="counter">
-      <div className="controls">
-        <IconButton onClick={decrement} size="small">
-          <RemoveIcon color="primary" fontSize="small" />
-        </IconButton>
-        <h4>{count}</h4>
-        <IconButton onClick={increment} size="small">
-          <AddIcon color="primary" fontSize="small" />
-        </IconButton>
-      </div>
+      {stock > 0 && (
+        <div className="controls">
+          <IconButton onClick={decrement} size="small">
+            <RemoveIcon color="primary" fontSize="small" />
+          </IconButton>
+          <h4>{count}</h4>
+          <IconButton onClick={increment} size="small">
+            <AddIcon color="primary" fontSize="small" />
+          </IconButton>
+        </div>
+      )}
       <button onClick={() => onAdd(count)} disabled={!stock}>
         Agregar al carrito
       </button>

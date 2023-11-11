@@ -1,10 +1,9 @@
 import "./Checkout.css";
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import { Link } from "react-router-dom";
+import { Link, json } from "react-router-dom";
 import Button from "@mui/material/Button";
 import { db } from "../../../firebaseConfig";
-import { useContext, useState } from "react";
 import Backdrop from "@mui/material/Backdrop";
 import Email from "@mui/icons-material/Email";
 import Phone from "@mui/icons-material/Phone";
@@ -12,6 +11,7 @@ import Person from "@mui/icons-material/Person";
 import TextField from "@mui/material/TextField";
 import logoFull from "../../../assets/logoFull.png";
 import outOfStock from "../../../assets/outOfStock.gif";
+import { useContext, useEffect, useState } from "react";
 import huggingFace from "../../../assets/huggingFace.png";
 import InputAdornment from "@mui/material/InputAdornment";
 import { CartContext } from "../../../context/CartContext";
@@ -29,12 +29,27 @@ function Checkout() {
 
   const [outOfStockList, setOutOfStockList] = useState([]);
 
-  const { cart, removeItem, clear } = useContext(CartContext);
+  const { cart, addItem, removeItem, clear } = useContext(CartContext);
 
   const total = cart.reduce((acc, item) => acc + item.quantity * item.price, 0);
 
-  const { errors, handleChange, handleSubmit } = useFormik({
-    initialValues: { nombre: "", telefono: "", email: "", confirm: "" },
+  useEffect(() => {
+    outOfStockList.forEach((item) => {
+      if (item.quantity > 0) {
+        addItem(item, item.quantity);
+      } else {
+        removeItem(item.id);
+      }
+    });
+  }, [outOfStockList]);
+
+  const { errors, handleChange, handleSubmit, values } = useFormik({
+    initialValues: {
+      nombre: JSON.parse(localStorage.getItem("buyer"))?.nombre || "",
+      telefono: JSON.parse(localStorage.getItem("buyer"))?.telefono || "",
+      email: JSON.parse(localStorage.getItem("buyer"))?.email || "",
+      confirm: JSON.parse(localStorage.getItem("buyer"))?.confirm || "",
+    },
     validationSchema: Yup.object({
       nombre: Yup.string().required("El nombre es obligatorio"),
       telefono: Yup.string().required("El teléfono es obligatorio"),
@@ -47,6 +62,8 @@ function Checkout() {
     }),
     validateOnChange: false,
     onSubmit: async (data) => {
+      localStorage.setItem("buyer", JSON.stringify(data));
+
       let outOfStock = false;
 
       setOutOfStockList([]);
@@ -210,6 +227,7 @@ function Checkout() {
                 ),
               }}
               variant="outlined"
+              value={values.nombre}
               onChange={handleChange}
               helperText={errors.nombre}
               error={errors.nombre ? true : false}
@@ -225,6 +243,7 @@ function Checkout() {
                 ),
               }}
               variant="outlined"
+              value={values.telefono}
               onChange={handleChange}
               helperText={errors.telefono}
               error={errors.telefono ? true : false}
@@ -240,6 +259,7 @@ function Checkout() {
                 ),
               }}
               variant="outlined"
+              value={values.email}
               onChange={handleChange}
               helperText={errors.email}
               error={errors.email ? true : false}
@@ -255,6 +275,7 @@ function Checkout() {
                 ),
               }}
               variant="outlined"
+              value={values.confirm}
               onChange={handleChange}
               helperText={errors.confirm}
               error={errors.confirm ? true : false}
