@@ -1,0 +1,49 @@
+.outOfStock {
+  top: 0px;
+  left: 0px;
+  width: 540px;
+  height: 270px;
+  position: absolute;
+}
+
+.emoji {
+  gap: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.checkout {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url(../../../assets/background.png);
+}
+
+.logoFull {
+  height: 6em;
+  padding: 1.5em;
+}
+.logoFull:hover {
+  filter: drop-shadow(0 0 2em #213547);
+}
+
+.button {
+  margin-bottom: 30px;
+}
+
+form {
+  gap: 30px;
+  padding: 2em;
+  display: inline-flex;
+  flex-direction: column;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: #213547;
+  transition: background-color 5000s ease-in-out 0s;
+}

@@ -1,5 +1,4 @@
 import "./Cart.css";
-import { useContext } from "react";
 import List from "@mui/material/List";
 import Badge from "@mui/material/Badge";
 import { Link } from "react-router-dom";
@@ -7,6 +6,7 @@ import Slide from "@mui/material/Slide";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import ListItem from "@mui/material/ListItem";
+import { useContext, useEffect } from "react";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import emptyCart from "../../../assets/emptyCart.png";
@@ -18,6 +18,18 @@ import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
 
 function Cart() {
   const { cart, removeItem, clear } = useContext(CartContext);
+
+  window.scrollTo(0, 0);
+
+  useEffect(() => {
+    const cartList = cart;
+
+    cartList.forEach((item) => {
+      if (item.quantity === 0) {
+        removeItem(item.id);
+      }
+    });
+  });
 
   return (
     <div className="card">
@@ -107,9 +119,11 @@ function Cart() {
               <Button color="error" onClick={clear} startIcon={<DeleteIcon />}>
                 Vaciar carrito
               </Button>
-              <Button variant="outlined" startIcon={<ShoppingBagIcon />}>
-                Terminar compra
-              </Button>
+              <Link to="/checkout">
+                <Button variant="outlined" startIcon={<ShoppingBagIcon />}>
+                  Terminar compra
+                </Button>
+              </Link>
             </div>
           </Slide>
         </List>
